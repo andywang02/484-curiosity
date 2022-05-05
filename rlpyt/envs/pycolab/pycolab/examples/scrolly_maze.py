@@ -201,9 +201,7 @@ COLOUR_FG = {' ': (0, 0, 0),        # Inky blackness of SPAAAACE
              '@': (999, 862, 110),  # Shimmering golden coins
              '#': (764, 0, 999),    # Walls of the SPACE MAZE
              'P': (0, 999, 999),    # This is you, the player
-             'a': (999, 0, 780),    # Patroller A
-             'b': (145, 987, 341),  # Patroller B
-             'c': (987, 623, 145)}  # Patroller C
+             }
 
 COLOUR_BG = {'.': (0, 0, 0),        # Around the stars, inky blackness etc.
              '@': (0, 0, 0)}
@@ -220,17 +218,11 @@ def make_game(level):
   walls_kwargs = scrolly_info.kwargs('#')
   coins_kwargs = scrolly_info.kwargs('@')
   player_position = scrolly_info.virtual_position('P')
-  patroller_a_position = scrolly_info.virtual_position('a')
-  patroller_b_position = scrolly_info.virtual_position('b')
-  patroller_c_position = scrolly_info.virtual_position('c')
 
   return ascii_art.ascii_art_to_game(
       STAR_ART, what_lies_beneath=' ',
       sprites={
-          'P': ascii_art.Partial(PlayerSprite, player_position),
-          'a': ascii_art.Partial(PatrollerSprite, patroller_a_position),
-          'b': ascii_art.Partial(PatrollerSprite, patroller_b_position),
-          'c': ascii_art.Partial(PatrollerSprite, patroller_c_position)},
+          'P': ascii_art.Partial(PlayerSprite, player_position)},
       drapes={
           '#': ascii_art.Partial(MazeDrape, **walls_kwargs),
           '@': ascii_art.Partial(CashDrape, **coins_kwargs)},
@@ -238,7 +230,7 @@ def make_game(level):
       # In accordance with best practices, the one egocentric MazeWalker (the
       # player) is in a separate and later update group from all of the
       # pycolab entities that control non-traversable characters.
-      update_schedule=[['#'], ['a', 'b', 'c', 'P'], ['@']],
+      update_schedule=[['#'], ['P'], ['@']],
       z_order='abc@#P')
 
 
