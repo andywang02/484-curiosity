@@ -257,6 +257,9 @@ COLOUR_BG = {'@': (0, 0, 0)}  # So the coins look like @ and not solid blocks.
 
 def make_game(level):
   """Builds and returns a Better Scrolly Maze game for the selected level."""
+  art = MAZES_ART[level]
+  art = ['#' * 15 + i + "#" * 15 for i in art]
+  art = ['#' * len(art[0])] * 5 + art + ['#' * len(art[0])] * 5
   return ascii_art.ascii_art_to_game(
       MAZES_ART[level], what_lies_beneath=' ',
       sprites={
